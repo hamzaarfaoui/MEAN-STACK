@@ -1,0 +1,48 @@
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
+    <nav class="uk-navbar-container uk-margin" uk-navbar>
+        <div class="uk-navbar-center">
+
+            <a class="uk-navbar-item uk-logo" routerLink="/home">Logo</a>
+
+
+            <ul class="uk-navbar-nav">
+                <li routerLinkActive="uk-active">
+                    <a routerLink="/dashboard">Tableau de board</a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span> Features
+                    </a>
+                </li>
+            </ul>
+
+            <div class="uk-navbar-item">
+                <div>Some <a href="#">Link</a></div>
+            </div>
+
+
+
+        </div>
+        <div class="uk-navbar-right">
+            <div class="uk-navbar-item">
+                <form action="javascript:void(0)">
+                    <input class="uk-input uk-form-width-small" type="text" placeholder="Input">
+                    <button class="uk-button uk-button-default">Button</button>
+                </form>
+            </div>
+            <ul class="uk-navbar-nav">
+                <li>
+                    <a href="#"><span uk-icon="icon: user"></span></a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#">Login</a></li>
+                            <li><a href="#">S'inscrire</a></li>
+                            <li><a href="#">Déconnexion</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
