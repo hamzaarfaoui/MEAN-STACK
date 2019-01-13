@@ -25,7 +25,9 @@ module.exports = (router) => {
                         } else {
                             res.json({ success: true, message: 'Utilisateur créer' });
                         }
+
                     });
+                    console.log(req.body);
                     res.json({ success: true, message: 'Bienvenu' });
                 }
             }
