@@ -21,14 +21,30 @@ module.exports = (router) => {
                     });
                     user.save((err) => {
                         if (err) {
-                            res.json({ success: false, message: 'Impossible de créer l utilisateur : ', err });
+                            if(err.code == 11000){
+                                res.json({ success: false, message: 'Email or username exist'});
+                            }else{
+                                if(err.errors){
+                                    if(err.errors.email){
+                                        res.json({ success: false, message: err.errors.email.message});
+                                    }else{
+                                        if(err.errors.username){
+                                            res.json({ success: false, message: err.errors.username.message});
+                                        }else{
+                                            if(err.errors.password){
+                                                res.json({ success: false, message: err.errors.password.message});
+                                            }
+                                        }
+                                    }
+                                }else{
+                                    res.json({ success: false, message: 'Impossible de créer l utilisateur : ', err });   
+                                }
+                            }
                         } else {
                             res.json({ success: true, message: 'Utilisateur créer' });
                         }
 
                     });
-                    console.log(req.body);
-                    res.json({ success: true, message: 'Bienvenu' });
                 }
             }
         }
