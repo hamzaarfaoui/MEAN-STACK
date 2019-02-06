@@ -1,0 +1,65 @@
+<div class="uk-position-cover uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
+    <div>
+        <div class="uk-card-media-top">
+            <img src="../../../assets/img/image1.jpg" style="width: 100%;height: 400px;" alt="">
+        </div>
+        <div class="uk-card uk-card-default uk-card-large uk-card-body">
+            <fieldset class="uk-fieldset">
+
+                <legend class="uk-legend uk-position-top-center">
+
+                </legend>
+
+                <div [ngClass]="visibilitee" class="uk-position-center">
+                    <div class="loader"></div>
+                </div>
+
+                <div [ngClass]="visibilite">
+                    <div [ngClass]="messageClass" uk-alert>
+                        <a class="uk-alert-close" uk-close></a>
+                        <p>{{ message }}</p>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br>
+                </div>
+
+                <form [formGroup]="form" (ngSubmit)="onLoginSubmit()" class="uk-position-bottom-center">
+
+                    <div class="uk-margin">
+                        <div [ngClass]="{'uk-form-danger display-alert':(form.controls.username.errors && form.controls.username.dirty), 'uk-form-success': !form.controls.username.errors}">
+                            <div class="uk-inline">
+                                <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                <input class="uk-input uk-form-width-large uk-form-large" [ngClass]="{'uk-form-danger':(form.controls.username.errors && form.controls.username.dirty), 'uk-form-success': !form.controls.username.errors}" name="username" formControlName="username" type="text">
+                            </div>
+                            <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">Ce champs est obligatroire</li>
+                            <li *ngIf="(form.controls.username.errors?.minlength || form.controls.username.errors?.maxlength) && form.controls.username.dirty">Minimum 5 caractéres et maximum 20 caractéres</li>
+                            <li *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">Le username doit contenir que des lettres et des chiffres</li>
+
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <div [ngClass]="{'uk-form-danger display-alert':(form.controls.password.errors && form.controls.password.dirty), 'uk-form-success': !form.controls.password.errors}">
+                            <div class="uk-inline">
+                                <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                <input class="uk-input uk-form-width-large uk-form-large" [ngClass]="{'uk-form-danger':(form.controls.password.errors && form.controls.password.dirty), 'uk-form-success': !form.controls.password.errors}" type="password" name="password" formControlName="password">
+                            </div>
+
+                            <ul>
+                                <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">Ce champs est obligatroire</li>
+                                <li *ngIf="form.controls.password.errors?.minlength || form.controls.password.errors?.maxlength">Minimum 8 caractéres et maximum 35 caractéres</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class=" uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
+                        <button type="submit" [disabled]="!form.valid" class="uk-button uk-button-large uk-button-primary"><span uk-icon="icon: arrow-right"></span> Connexion</button>
+                    </div>
+                </form>
+                <!-- <p>Username : {{form.controls.username.value}}</p>
+              <p>E-mail : {{form.controls.email.value}}</p>
+              <p>Password : {{form.controls.password.value}}</p> -->
+            </fieldset>
+        </div>
+    </div>
+</div>

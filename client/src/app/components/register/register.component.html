@@ -3,30 +3,38 @@
         <div class="uk-grid-item-match">
             <div class="uk-card uk-card-default uk-card-body">
                 <h3>Création d'un compte</h3>
+                <div [ngClass]="visibilite">
+                    <div [ngClass]="messageClass" uk-alert>
+                        <a class="uk-alert-close" uk-close></a>
+                        <p>{{ message }}</p>
+                    </div>
+                </div>
+
                 <form class="uk-form-horizontal uk-margin-large" [formGroup]="form" (ngSubmit)="onRegisterSubmit()">
                     <div class="uk-margin">
-                        <div [ngClass]="{'uk-form-danger':(form.controls.username.errors && form.controls.username.dirty), 'uk-form-success': !form.controls.username.errors}">
+                        <div [ngClass]="{'uk-form-danger':(form.controls.username.errors && form.controls.username.dirty) || (!usernameValid && form.controls.username.dirty), 'uk-form-success': !form.controls.username.errors && usernameValid}">
                             <label class="uk-form-label" for="form-horizontal-text">Username</label>
                             <div class="uk-form-controls">
                                 <div class="uk-inline">
                                     <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                    <input class="uk-input" [ngClass]="{'uk-form-danger':(form.controls.username.errors && form.controls.username.dirty), 'uk-form-success': !form.controls.username.errors}" name="username" formControlName="username" type="text">
+                                    <input class="uk-input" [ngClass]="{'uk-form-danger':(form.controls.username.errors && form.controls.username.dirty) || (!usernameValid && form.controls.username.dirty), 'uk-form-success': !form.controls.username.errors && usernameValid}" name="username" formControlName="username" type="text" (blur)="checkUsername()">
                                 </div>
                             </div>
                             <ul>
                                 <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">Ce champs est obligatroire</li>
                                 <li *ngIf="(form.controls.username.errors?.minlength || form.controls.username.errors?.maxlength) && form.controls.username.dirty">Minimum 5 caractéres et maximum 20 caractéres</li>
                                 <li *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">Le username doit contenir que des lettres et des chiffres</li>
+                                <li *ngIf="usernameMessage">{{ usernameMessage }}</li>
                             </ul>
                         </div>
                     </div>
                     <div class="uk-margin">
-                        <div [ngClass]="{'uk-form-danger':(form.controls.email.errors && form.controls.email.dirty), 'uk-form-success': !form.controls.email.errors}">
+                        <div [ngClass]="{'uk-form-danger':(form.controls.email.errors && form.controls.email.dirty) || (!emailValid && form.controls.email.dirty), 'uk-form-success': !form.controls.email.errors && emailValid}">
                             <label class="uk-form-label" for="form-horizontal-text">E-mail</label>
                             <div class="uk-form-controls">
                                 <div class="uk-inline">
                                     <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                                    <input class="uk-input" [ngClass]="{'uk-form-danger':(form.controls.email.errors && form.controls.email.dirty), 'uk-form-success': !form.controls.email.errors}" name="email" formControlName="email" type="email">
+                                    <input class="uk-input" [ngClass]="{'uk-form-danger':(form.controls.email.errors && form.controls.email.dirty) || (!emailValid && form.controls.email.dirty), 'uk-form-success': !form.controls.email.errors && emailValid}" name="email" formControlName="email" type="email" (blur)="checkEmail()">
                                 </div>
 
                             </div>
@@ -34,6 +42,7 @@
                                 <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">Ce champs est obligatroire</li>
                                 <li *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength) && form.controls.email.dirty">Minimum 15 caractéres et maximum 30 caractéres</li>
                                 <li *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">Veuillez saisir une adresse mail valide</li>
+                                <li *ngIf="emailMessage">{{ emailMessage }}</li>
                             </ul>
                         </div>
 
@@ -61,7 +70,8 @@
                             <div class="uk-form-controls">
                                 <div class="uk-inline">
                                     <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                    <input class="uk-input" [ngClass]="{'uk-form-danger':(form.controls.confirmPassword.errors && form.controls.confirmPassword.dirty) || (form.errors?.matchingPassword && form.controls.confirmPassword.dirty), 'uk-form-success': !form.controls.confirmPassword.errors && !form.errors?.matchingPassword }" type="password" name="confirmPassword" formControlName="confirmPassword">
+                                    <input class="uk-input" [ngClass]="{'uk-form-danger':(form.controls.confirmPassword.errors && form.controls.confirmPassword.dirty) || (form.errors?.matchingPassword && form.controls.confirmPassword.dirty), 'uk-form-success': !form.controls.confirmPassword.errors && !form.errors?.matchingPassword }"
+                                        type="password" name="confirmPassword" formControlName="confirmPassword">
                                 </div>
                             </div>
                             <ul>
@@ -72,7 +82,7 @@
                     </div>
                     <br><br>
                     <div class="uk-position-bottom-right uk-overlay uk-overlay-default">
-                        <button type="submit" [disabled]="!form.valid" class="uk-button uk-button-primary">S'inscrire</button>
+                        <button type="submit" [disabled]="!form.valid || processing || !emailValid || !usernameValid" class="uk-button uk-button-primary">S'inscrire</button>
                     </div>
                 </form>
                 <!-- <p>Username : {{form.controls.username.value}}</p>

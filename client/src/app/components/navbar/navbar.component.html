@@ -1,23 +1,23 @@
 <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
-    <nav class="uk-navbar-container uk-margin" uk-navbar>
+    <nav class="uk-navbar-container uk-margin" uk-navbar style="background-color: #80DEEA;">
         <div class="uk-navbar-center">
 
             <a class="uk-navbar-item uk-logo" routerLink="/">Logo</a>
 
 
             <ul class="uk-navbar-nav">
-                <li routerLinkActive="uk-active">
+                <li routerLinkActive="uk-active" *ngIf="authService.loggedIn()">
                     <a routerLink="/dashboard">Tableau de board</a>
                 </li>
-                <li>
+                <li *ngIf="authService.loggedIn()">
                     <a href="#">
-                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span> Features
+                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span> Favoris
                     </a>
                 </li>
             </ul>
 
-            <div class="uk-navbar-item">
-                <div>Some <a href="#">Link</a></div>
+            <div *ngIf="authService.loggedIn()" class="uk-navbar-item">
+                <div><a href="#">Blog</a></div>
             </div>
 
 
@@ -29,10 +29,10 @@
                     <a href="#"><span uk-icon="icon: user"></span></a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Login</a></li>
-                            <li><a  routerLink="/register">S'inscrire</a></li>
-                            <li><a href="#">Déconnexion</a></li>
+                            <li *ngIf="authService.loggedIn()"><a routerLink="/profile">Profile</a></li>
+                            <li *ngIf="!authService.loggedIn()"><a routerLink="/login">Login</a></li>
+                            <li *ngIf="!authService.loggedIn()"><a routerLink="/register">S'inscrire</a></li>
+                            <li *ngIf="authService.loggedIn()"><a href="#" (click)="onLogoutClick()">Déconnexion</a></li>
                         </ul>
                     </div>
                 </li>
