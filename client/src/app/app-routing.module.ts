@@ -23,8 +23,7 @@ const routes: Routes = [
   },
   {
     path : 'blog',
-    component : BlogComponent,
-    canActivate : [NotAuthGuard]
+    component : BlogComponent
   },
   {
     path : 'register',

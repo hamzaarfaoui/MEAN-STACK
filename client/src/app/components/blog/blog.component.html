@@ -1,3 +1,213 @@
-<p>
-  blog works!
-</p>
+<div class="uk-container">
+    <div class="uk-child-width-expand@s" uk-grid>
+        <div class="uk-grid-item-match">
+            <div class="uk-card uk-card-default uk-card-body">
+                <h3>Blog</h3>
+                <!-- <div [ngClass]="visibilite">
+                    <div [ngClass]="messageClass" uk-alert>
+                        <a class="uk-alert-close" uk-close></a>
+                        <p>{{ message }}</p>
+                    </div>
+                </div> -->
+                <div class="uk-position-top-right uk-overlay uk-overlay-default">
+                    <p uk-margin>
+                        <button class="uk-button uk-button-primary" *ngIf="!newPost" (click)="newBlogForm()">
+                            Nouveau
+                        </button>
+                        <button [disabled]="loadingBlogs" class="uk-button uk-button-default" *ngIf="!newPost" (click)="reloadPost()">
+                            <i uk-icon="refresh"></i>
+                            &nbsp;&nbsp;Rafraichir
+                        </button>
+                    </p>
+                </div>
+                <div *ngIf="!newPost">
+                    <ul class="uk-comment-list">
+                        <li>
+                            <article class="uk-comment uk-visible-toggle" tabindex="-1">
+                                <header class="uk-comment-header uk-position-relative">
+                                    <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                                        <div class="uk-width-auto">
+                                            <img class="uk-comment-avatar" src="../../../assets/img/wommen.jpg" width="80" height="80" alt>
+                                        </div>
+                                        <div class="uk-width-expand">
+                                            <h4 class="uk-comment-title uk-margin-remove">
+                                                <a class="uk-link-reset" href="#">
+                                                    Author
+                                                </a>
+                                            </h4>
+                                            <p class="uk-comment-meta uk-margin-remove-top">
+                                                <a class="uk-link-reset" href="#">
+                                                    12 days ago
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="uk-position-top-right uk-position-small uk-hidden-hover">
+                                        <a class="uk-link-muted" href="#">
+                                            Reply
+                                        </a>
+                                    </div>
+                                    <br>
+                                    <div class="uk-position-bottom-right">
+                                        <button class="uk-icon uk-icon-image" style="background-image: url(../../../assets/img/like.png);"></button> &nbsp;
+                                        <a href="#modal-likes" uk-toggle class="uk-badge">
+                                            16
+                                        </a> &nbsp;&nbsp;&nbsp;
+                                        <button class="uk-icon uk-icon-image" style="background-image: url(../../../assets/img/dislike.png);"></button> &nbsp;
+                                        <a href="#modal-dislikes" uk-toggle class="uk-badge">
+                                            2
+                                        </a> &nbsp;&nbsp;&nbsp;
+                                        <a uk-icon="icon: comments;" href="#modal-post-comment" uk-toggle></a>
+                                        &nbsp;
+                                        <a href="#modal-comments" class="uk-badge" uk-toggle>
+                                            7
+                                        </a> &nbsp;&nbsp;&nbsp;
+                                        <div id="modal-post-comment" class="uk-flex-top" uk-modal>
+                                            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+                                                <button class="uk-modal-close-default" type="button" uk-close></button>
+                                                <div class="uk-modal-header">
+                                                    <h6 class="uk-modal-title">Mettre un commentaire</h6>
+                                                </div>
+
+                                                <div class="uk-modal-body" uk-overflow-auto>
+
+                                                    <textarea class="uk-textarea" rows="10"></textarea>
+                                                </div>
+
+                                                <div class="uk-modal-footer uk-text-right">
+                                                    <button class="uk-button uk-button-primary" type="button">
+                                                        commenter
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div id="modal-dislikes" uk-modal>
+                                            <div class="uk-modal-dialog">
+
+                                                <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                                                <div class="uk-modal-header">
+                                                    <h6 class="uk-modal-title">
+                                                        Personnes qui n'ont pas aimés la publication aaaa
+                                                    </h6>
+                                                </div>
+
+                                                <div class="uk-modal-body" uk-overflow-auto>
+
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                    </p>
+
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                    </p>
+
+                                                </div>
+
+                                                <div class="uk-modal-footer uk-text-right">
+                                                    <button class="uk-button uk-button-default uk-modal-close" type="button">
+                                                        Cancel
+                                                    </button>
+                                                    <button class="uk-button uk-button-primary" type="button">
+                                                        Save
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div id="modal-likes" uk-modal>
+                                            <div class="uk-modal-dialog">
+
+                                                <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                                                <div class="uk-modal-header">
+                                                    <h6 class="uk-modal-title">
+                                                        Personnes qui ont aimés la publication aaaa
+                                                    </h6>
+                                                </div>
+
+                                                <div class="uk-modal-body" uk-overflow-auto>
+
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                    </p>
+
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                    </p>
+
+                                                </div>
+
+                                                <div class="uk-modal-footer uk-text-right">
+                                                    <button class="uk-button uk-button-default uk-modal-close" type="button">
+                                                        Cancel
+                                                    </button>
+                                                    <button class="uk-button uk-button-primary" type="button">
+                                                        Save
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div id="modal-comments" uk-modal>
+                                            <div class="uk-modal-dialog">
+
+                                                <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                                                <div class="uk-modal-header">
+                                                    <h6 class="uk-modal-title">Commentaires de la publication aaaa</h6>
+                                                </div>
+
+                                                <div class="uk-modal-body" uk-overflow-auto>
+
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                    </p>
+
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                    </p>
+
+                                                </div>
+
+                                                <div class="uk-modal-footer uk-text-right">
+                                                    <button class="uk-button uk-button-default uk-modal-close" type="button">
+                                                        Cancel
+                                                    </button>
+                                                    <button class="uk-button uk-button-primary" type="button">
+                                                        Save
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <a href="#" uk-tooltip="Modifier" class="uk-icon-link uk-margin-small-right" uk-icon="file-edit"></a>
+                                        &nbsp;
+                                        <a href="#" uk-tooltip="Supprimer" class="uk-icon-link" uk-icon="trash"></a>
+                                    </div>
+                                </header>
+                                <div class="uk-comment-body">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+                                        sanctus est Lorem ipsum dolor sit amet.
+                                    </p>
+
+                                </div>
+                            </article>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

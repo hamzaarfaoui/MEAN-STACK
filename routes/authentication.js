@@ -122,21 +122,21 @@ module.exports = (router) => {
     });
     //end login
 
-    router.use((req, res, next) => {
-        const token = req.headers['authorization'];
-        if (!token) {
-            res.json({ success: false, message: "Aucun token trouvé" });
-        } else {
-            jwt.verify(token, config.secret, (err, decoded) => {
-                if (err) {
-                    res.json({ success: false, message: "Token invalid : " + err });
-                } else {
-                    req.decoded = decoded;
-                    next();
-                }
-            });
-        }
-    });
+    // router.use((req, res, next) => {
+    //     const token = req.headers['authorization'];
+    //     if (!token) {
+    //         res.json({ success: false, message: "Aucun token trouvé" });
+    //     } else {
+    //         jwt.verify(token, config.secret, (err, decoded) => {
+    //             if (err) {
+    //                 res.json({ success: false, message: "Token invalid : " + err });
+    //             } else {
+    //                 req.decoded = decoded;
+    //                 next();
+    //             }
+    //         });
+    //     }
+    // });
 
     //start profile
     router.get('/profile', (req, res) => {
