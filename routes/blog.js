@@ -6,34 +6,36 @@ const config = require('../config/database');
 module.exports = (router) => {
     router.post('/newBlog', (req, res) => {
         if (!req.body.title) {
-            res.json({ success : false, message : "Entrer un titre" });
+            res.json({ success: false, message: "Entrer un titre" });
         } else {
-            if(!req.body.body){
-                res.json({ success : false, message : "Entrer un contenu" });
+            if (!req.body.body) {
+                res.json({ success: false, message: "Entrer un contenu" });
             } else {
-                if(!req.body.createdBy){
-                    res.json({ success : false, message : "Entrer Le nom de l'auteur" });
+                if (!req.body.createdBy) {
+                    res.json({ success: false, message: "Entrer Le nom de l'auteur" });
                 } else {
                     const blog = new Blog({
-                        title : req.body.title,
-                        body : req.body.body,
-                        createdBy : req.body.createdBy,
+                        title: req.body.title,
+                        body: req.body.body,
+                        createdBy: req.body.createdBy,
                     });
                     blog.save((err) => {
                         if (err) {
                             if (err.errors) {
                                 if (err.errors.title) {
-                                    res.json({ success : false, message : err.errors.title.message });
+                                    res.json({ success: false, message: err.errors.title.message });
                                 } else {
                                     if (err.errors.title) {
-                                        res.json({ success : false, message : err.errors.title.message });
+                                        res.json({ success: false, message: err.errors.title.message });
                                     } else {
-                                        res.json({ success : false, message : err.errmsg });
+                                        res.json({ success: false, message: err.errmsg });
                                     }
                                 }
                             } else {
-                                res.json({ success : false, message : "Erreur : "+err });
+                                res.json({ success: false, message: "Erreur : " + err });
                             }
+                        } else {
+                            res.json({ success: true, message: "Le blog " + req.body.title + " a été ajouté" });
                         }
                     });
                 }
